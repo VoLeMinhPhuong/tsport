@@ -1,0 +1,37 @@
+﻿@using TSPORT.Models;
+@{
+    KHACHHANG kh = (KHACHHANG)Session["TaiKhoan"];
+}
+<style>
+    .user-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-greeting {
+        margin-left: 5px; /* điều chỉnh khoảng cách giữa biểu tượng và văn bản */
+    }
+</style>
+@if (Session["TaiKhoan"] == null) //Giao diện Login
+{
+    <li>
+        <a href="~/User/DangNhap?id=1" class="nav-item nav-link">  <i class="fas fa-sign-in-alt"></i>Đăng Nhập</a>
+    </li>
+    <li>
+        <a href="~/User/DangKy" class="nav-item nav-link"> <i class="fas">&#xf007;</i>Đăng Ký</a>
+    </li>
+}
+else
+{
+    <li>
+        <a href="#" class="nav-item nav-link user-info">
+            <i class="fas fa-user"></i> <span class="user-greeting">Xin chào: @kh.HoTen</span>
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("LogOut","User")" class="nav-item nav-link logout">
+            <i class="fas fa-sign-out-alt"></i> Đăng xuất
+        </a>
+
+    </li>
+}

@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "DangKy";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>DangKy</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Login Form Template" name="keywords">
+    <meta content="Login Form Template" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Stylesheet -->
+    <link href="~/Content/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper login-3">
+        <div class="container">
+            <div class="col-left">
+                <div class="login-text">
+                    <h2>WELCOME!!!</h2>
+                    <p>
+                        Chào mừng người cũ đã trở lại!!!
+                    </p>
+                    <a class="btn" href="@Url.Action("DangNhap", "User")">ĐĂNG NHẬP</a>
+                </div>
+            </div>
+            <div class="col-right">
+                <div class="login-form">
+                    <h2 style="text-align:center">ĐĂNG KÝ TÀI KHOẢN NGƯỜI DÙNG</h2>
+                    @using (Html.BeginForm("DangKy", "User"))
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-input">
+                            Họ tên: @Html.TextBox("HoTen") @ViewData["err1"]
+                        </div>
+
+                        <div class="form-input">
+                            Tên đăng nhập: @Html.TextBox("TenDN") @ViewData["err2"]
+                        </div>
+
+                        <div class="form-input">
+                            Mật khẩu: @Html.Password("MatKhau") @ViewData["err3"]
+                        </div>
+
+                        <div class="form-input">
+                            Mật khẩu nhập lại: @Html.Password("MatKhauNL") @ViewData["err4"]
+                        </div>
+
+                        <div class="form-input">
+                            Email: @Html.TextBox("Email") @ViewData["err5"]
+                        </div>
+
+                        <div class="form-input">
+                            Điện thoại: @Html.TextBox("DienThoai") @ViewData["err6"]
+                        </div>
+
+                        <div class="form-input">
+                            Ngày sinh: <input type="date" name="NgaySinh" />
+                        </div>
+
+                        <div class="form-input">
+                            Địa chỉ: <input type="text" name="DiaChi" />
+                        </div>
+
+                        <div class="form-input" style="margin-top: 10px;">
+                            <input type="submit" value="Đăng Ký" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="successMessage" style="display: none;">
+        <p>Đăng ký thành công!</p>
+    </div>
+
+    <script>
+        function clearFields() {
+            document.getElementById("HoTen").value = "";
+            document.getElementById("TenDN").value = "";
+            document.getElementById("MatKhau").value = "";
+            document.getElementById("MatKhauNL").value = "";
+            document.getElementById("Email").value = "";
+            document.getElementById("DienThoai").value = "";
+        }
+
+        <input type="submit" value="Đăng Ký" onclick="clearFields()" />
+    </script>
+
+</body>
+</html>

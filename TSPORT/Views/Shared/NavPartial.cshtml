@@ -1,0 +1,41 @@
+﻿@{
+    var routeValues = new RouteValueDictionary();
+    routeValues["area"] = "Admin"; // Thay "TênKhuVực" bằng tên thực tế của Area mà bạn muốn gọi action từ đó.
+    routeValues["controller"] = "User"; // Thay "TênController" bằng tên thực tế của Controller mà bạn muốn gọi action từ đó.
+    routeValues["action"] = "DangNhap"; // Thay "TênAction" bằng tên thực tế của Action mà bạn muốn gọi.
+
+    var url = Url.Action(null, null, routeValues);
+    var user = Session["TaiKhoan"] as TSPORT.Models.KHACHHANG;
+}
+@{
+    Layout = null;
+}
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+    <a href="/Home/Index" class="text-decoration-none d-block d-lg-none">
+        <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">T</span>SPORT</h1>
+    </a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        <div class="navbar-nav mr-auto py-0">
+            <a href="/Home/Index" class="nav-item nav-link">Trang Chủ</a>
+            <a href="/Home/Shop" class="nav-item nav-link">Cửa Hàng</a>
+            @*<a href="/Home/Detail" class="nav-item nav-link">Shop Detail</a>*@
+            @*<div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                <div class="dropdown-menu rounded-0 m-0">
+                    <a href="/Home/ShoppingCart" class="dropdown-item">Shopping Cart</a>
+                    <a href="/Home/CheckOut" class="dropdown-item">Checkout</a>
+                </div>
+            </div>
+                *@
+            <a href="/Home/Contact" class="nav-item nav-link">Liên Hệ</a>
+        </div>
+        <div class="navbar-nav ml-auto py-0">
+            @Html.Action("LoginLogout", "Home")
+        </div>
+    </div>
+</nav>
+<!-- Navbar End -->

@@ -1,0 +1,26 @@
+﻿@model TSPORT.Models.LOAISP
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="text-align:center">CHI TIẾT DANH MỤC SẢN PHẨM</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên Loại Sản Phẩm:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenLoai)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("SỬA", "Edit", new { id = Model.MaLoai }) |
+    @Html.ActionLink("TRỞ VỀ QUẢN LÝ LOẠI SẢN PHẨM", "Index")
+</p>

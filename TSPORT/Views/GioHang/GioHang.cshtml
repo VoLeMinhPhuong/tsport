@@ -1,0 +1,104 @@
+﻿@using TSPORT.Models;
+@model  List<GioHang>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+<h2 style="text-align: center;">CHI TIẾT GIỎ HÀNG</h2>
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="bg-secondary text-dark">
+                    <tr>
+                        <th>Mã</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Tổng</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody class="align-middle">
+                        <tr>
+                            <td class="align-middle">@item.iMaSanPham</td>
+                            <td class="align-middle">@item.sTenSanPham</td>
+                            <td class="align-middle"><img src="~/File/img/@item.sAnhBia" alt="" style="width: 50px;"></td>
+                            <td class="align-middle">@string.Format("{0:#,##0,0}", @item.dDonGia)</td>
+                            @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { iMaSanPham = item.iMaSanPham }))
+                            {
+                                <td class="align-middle">
+                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm bg-secondary text-center" name="txtSoLuong" value="@item.iSoLuong">
+
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle">@string.Format("{0:#,##0,0}", @item.dThanhTien)</td>
+                                <td class="align-middle">
+                                    <button>@Html.ActionLink("X", "XoaSanPhamGioHang", new { id = item.iMaSanPham })</button>
+                                </td>
+                            }
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+        @foreach (var item in Model.Take(1))
+        {
+            <div class="col-lg-4">
+                @using (Html.BeginForm())
+                {
+                    <div class="card border-secondary mb-5">
+                        <div class="card-header bg-secondary border-0">
+                            <h3 class="font-weight-semi-bold m-0" style="text-align:center">TÓM TẮT</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3 pt-1">
+                                <h6 class="font-weight-medium">Tổng Sản Phẩm:</h6>
+                                <h6 class="font-weight-medium">@string.Format("{0:#,##0}", @ViewBag.TongSoLuong)</h6>
+                            </div>
+                        </div>
+                        <div class="card-footer border-secondary bg-transparent">
+                            <div class="d-flex justify-content-between mt-2">
+                                <h5 class="font-weight-bold">Tổng Tiền:</h5>
+                                <h5 class="font-weight-bold">@string.Format("{0:#,##0,0}", @ViewBag.TongTien)</h5>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("DatHang","GioHang")" class="btn btn-primary" style="margin-left: 135px;">ĐẶT HÀNG</a><br />
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <a href="@Url.Action("XoaGioHang")" class="btn btn-danger" style="margin-left: 100px;">XÓA GIỎ HÀNG</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+@using (Ajax.BeginForm("GioHang", "GioHang", new AjaxOptions
+{
+    OnBegin = "OnBeginCO"
+}, new {@Id = "myForm" }))
+            {
+                <script>
+                    function OnBeginCO() {
+                        $('#btnCheckOut').attr("disabled", "disabled");
+                    }
+                </script>
+            }            
+
+            

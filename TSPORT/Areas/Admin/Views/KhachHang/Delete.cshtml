@@ -1,0 +1,88 @@
+﻿@model TSPORT.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style type="text/css">
+    h3, h4 {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+
+<h2 style="text-align:center">XÓA THÔNG TIN KHÁCH HÀNG</h2>
+<h3>Bạn có chắc chắn muốn xóa khách hàng này?</h3>
+<h4>@Html.Raw(ViewBag.ThongBao)</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Họ Và Tên:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
+
+        <dt>
+            Tài Khoản:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaiKhoan)
+        </dd>
+
+        <dt>
+            Mật Khẩu:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatKhau)
+        </dd>
+
+        <dt>
+            Email:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            Địa Chỉ:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+        <dt>
+            Điện Thoại:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DienThoai)
+        </dd>
+
+        <dt>
+            Ngày Sinh:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="XÓA" class="btn btn-success" /> |
+            @Html.ActionLink("VỀ TRANG QUẢN LÝ KHÁCH HÀNG", "Index")
+        </div>
+    }
+</div>

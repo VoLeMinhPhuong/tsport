@@ -1,0 +1,136 @@
+﻿@using TSPORT.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<TSPORT.Models.SANPHAM>
+@{
+    ViewBag.Title = "Shop";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+@*
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">OUR SHOP</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="/Home/Index">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Shop</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->*@
+<!-- Shop Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <!-- Shop Sidebar Start -->
+        <div class="col-lg-3 col-md-12">
+            <!-- Price Start -->
+            <div class="border-bottom mb-4 pb-4">
+                <h5 class="font-weight-semi-bold mb-4">Lọc Theo Giá</h5>
+                <form>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" checked id="price-all">
+                        <label class="custom-control-label" for="price-all">Tất Cả Giá</label>
+                        <span class="badge border font-weight-normal">1000</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-1">
+                        <label class="custom-control-label" for="price-1">0 - 100K</label>
+                        <span class="badge border font-weight-normal">150</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-2">
+                        <label class="custom-control-label" for="price-2">100K - 200K</label>
+                        <span class="badge border font-weight-normal">295</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-3">
+                        <label class="custom-control-label" for="price-3">200K - 300K</label>
+                        <span class="badge border font-weight-normal">246</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="price-4">
+                        <label class="custom-control-label" for="price-4">300K - 500K</label>
+                        <span class="badge border font-weight-normal">145</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                        <input type="checkbox" class="custom-control-input" id="price-5">
+                        <label class="custom-control-label" for="price-5">500K - 999K</label>
+                        <span class="badge border font-weight-normal">168</span>
+                    </div>
+                </form>
+            </div>
+            <!-- Price End -->
+        </div>
+        <!-- Shop Sidebar End -->
+        <!-- Shop Product Start -->
+        <div class="col-lg-9 col-md-12">
+            <div class="row pb-3">
+                <div class="col-12 pb-1">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <form action="/Home/TimKiem">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Tìm Kiếm Theo Tên...">
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-transparent text-primary">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                @foreach (var sp in Model)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+
+                        <div class="card product-item border-0 mb-4">
+
+                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <img class="img-fluid w-100" src="~/File/img/@sp.AnhBia" alt="">
+                            </div>
+                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                <h6 class="text-truncate mb-3">@sp.TenSanPham)</h6>
+                                <div class="d-flex justify-content-center">
+                                    <h6>@string.Format("{0:#,##0,0}", @sp.GiaBan) VNĐ</h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between bg-light border">
+                                <a href="@Url.Action("ChiTietSanPham", "Home", new { id = sp.MaSanPham })" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                <a href="@Url.Action("ThemGioHang","GioHang", new { ms = sp.MaSanPham, url = Request.Url.ToString() })" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+                <div class="col-12 pb-1">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center mb-3">
+                            <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("Shop", new { page = Model.PageNumber - 1 })" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= Model.PageCount; i++)
+                            {
+                                <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("Shop", new { page = i })">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(Model.PageNumber == Model.PageCount ? "disabled" : "")">
+                                <a class="page-link" href="@Url.Action("Shop", new { page = Model.PageNumber + 1 })" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div>Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber) /@Model.PageCount</div>
+            </div>
+        </div>
+        <!-- Shop Product End -->
+    </div>
+</div>
+<!-- Shop End -->

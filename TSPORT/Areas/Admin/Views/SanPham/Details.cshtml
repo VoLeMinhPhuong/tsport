@@ -1,0 +1,80 @@
+﻿@model TSPORT.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style type="text/css">
+    img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h2 style="text-align:center">CHI TIẾT SẢN PHẨM</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên Sản Phẩm:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenSanPham)
+        </dd>
+
+        <dt>
+            Mô Tả:
+        </dt>
+
+        <dd>
+            @Html.Raw(@Model.MoTa.ToString().Replace("\n", "</p><p>&nbsp&nbsp&nbsp&nbsp&nbsp"))
+        </dd>
+
+        <dt>
+            Ảnh Bìa:
+        </dt>
+
+        <dd>
+            <img src="~/File/img/@Model.AnhBia" alt="@Model.TenSanPham">
+        </dd>
+
+        <dt>
+            Ngày Cập Nhật:
+        </dt>
+
+        <dd>
+            @Html.FormatValue(@Model.NgayCapNhat, "{0:dd/MM/yyyy}")
+        </dd>
+
+        <dt>
+            Số Lượng Bán:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuongBan)
+        </dd>
+
+        <dt>
+            Giá Bán:
+        </dt>
+
+        <dd>
+            @Html.FormatValue(@Model.GiaBan, "{0:#,##0}") VNĐ
+        </dd>
+
+        <dt>
+            Loại Sản Phẩm:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LOAISP.TenLoai)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("SỬA", "Edit", new { id = Model.MaSanPham }) |
+    @Html.ActionLink("VỀ TRANG QUẢN LÝ SẢN PHẨM", "Index")
+</p>

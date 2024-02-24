@@ -1,0 +1,61 @@
+﻿@using TSPORT.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<TSPORT.Models.SANPHAM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutTSPORT.cshtml";
+}
+
+<!-- Products Start -->
+<div class="container-fluid pt-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">Sản Phẩm Nổi Bật</span></h2>
+    </div>
+    <div class="row px-xl-5 pb-3">
+        @foreach (var sp in Model)
+        {
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="~/File/img/@sp.AnhBia" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">@sp.TenSanPham</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>@string.Format("{0:#,##0,0}", @sp.GiaBan) VNĐ</h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="@Url.Action("ChiTietSanPham", "Home", new { id = sp.MaSanPham })" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="@Url.Action("ThemGioHang","GioHang", new { ms = sp.MaSanPham, url = Request.Url.ToString() })" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="text-center mb-4">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mb-3">
+                <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1 })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.PageNumber == Model.PageCount ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1 })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div>Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber) /@Model.PageCount</div>
+</div>
